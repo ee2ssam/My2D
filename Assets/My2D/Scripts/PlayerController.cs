@@ -31,7 +31,6 @@ namespace My2D
         public void OnMove(InputAction.CallbackContext context)
         {
             inputMove = context.ReadValue<Vector2>();
-            Debug.Log("inputMove: " + inputMove);
         }
     }
 }
