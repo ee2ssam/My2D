@@ -11,8 +11,12 @@ namespace My2D
         private Rigidbody2D rb2D;
         private Animator animator;
         private TouchingDirections touchingDirections;
+        private Damageable damageable;
+
         //플레이어 감지
         public DetectionZone detectionZone;
+        //낭떨어지 감지
+        public DetectionZone detectionCliff;
 
         //이동속도
         [SerializeField] private float runSpeed = 4f;
@@ -72,12 +76,17 @@ namespace My2D
             rb2D = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
             touchingDirections = GetComponent<TouchingDirections>();
+
+            damageable = GetComponent<Damageable>();
+            damageable.hitAction += OnHit;
+
+            detectionCliff.noColliderRamain += OnCliffDetection;
         }
 
         private void Update()
         {
             //적 감지 충돌체의 리스트 갯수가 0보다 크면 적이 감지 된것이다
-            //HasTarget = (detectionZone.detectedColliders.Count > 0);
+            HasTarget = (detectionZone.detectedColliders.Count > 0);
         }
 
         private void FixedUpdate()
@@ -89,17 +98,19 @@ namespace My2D
                 Flip();
             }
 
-            //이동
-            if(CanMove)
+            if(!damageable.LockVelocity)
             {
-                rb2D.velocity = new Vector2(directionVector.x * runSpeed, rb2D.velocity.y);
-            }
-            else
-            {
-                //rb2D.velocity.x -> 0 : Lerp 멈춤
-                rb2D.velocity = new Vector2(Mathf.Lerp(rb2D.velocity.x, 0f, stopRate), rb2D.velocity.y);
-            }
-            
+                //이동
+                if (CanMove)
+                {
+                    rb2D.velocity = new Vector2(directionVector.x * runSpeed, rb2D.velocity.y);
+                }
+                else
+                {
+                    //rb2D.velocity.x -> 0 : Lerp 멈춤
+                    rb2D.velocity = new Vector2(Mathf.Lerp(rb2D.velocity.x, 0f, stopRate), rb2D.velocity.y);
+                }
+            }            
         }
 
         //방향전환 반전
@@ -116,6 +127,19 @@ namespace My2D
             else
             {
                 Debug.Log("Error Flip Direction");
+            }
+        }
+
+        public void OnHit(float damage, Vector2 knockback)
+        {
+            rb2D.velocity = new Vector2(knockback.x, rb2D.velocity.y + knockback.y);
+        }
+
+        public void OnCliffDetection()
+        {
+            if (touchingDirections.IsGround)
+            {
+                Flip();
             }
         }
     }
