@@ -105,6 +105,9 @@ namespace My2D
                 //무적모드 초기화
                 isInvincible = true;
 
+                //데미지 전의 hp
+                float beforeHealth = CurrentHealth;
+
                 CurrentHealth -= damage;
                 Debug.Log($"{transform.name}가 현재 체력은 {CurrentHealth}");
 
@@ -116,8 +119,10 @@ namespace My2D
                 {
                     hitAction.Invoke(damage, knocback);
                 }*/
-                hitAction?.Invoke(damage, knocback);
-                CharacterEvents.characterDamaged?.Invoke(gameObject, damage);
+                float realDamage = beforeHealth - CurrentHealth;
+
+                hitAction?.Invoke(realDamage, knocback);
+                CharacterEvents.characterDamaged?.Invoke(gameObject, realDamage);
 
             }
         }
@@ -129,11 +134,16 @@ namespace My2D
             {
                 return false;
             }
+            //힐 전의 hp
+            float beforeHealth = CurrentHealth;
 
             CurrentHealth += amount;
             CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
 
-            CharacterEvents.characterHealed?.Invoke(gameObject, amount);
+            //실제 힐 hp값
+            float realHealth = CurrentHealth - beforeHealth;
+
+            CharacterEvents.characterHealed?.Invoke(gameObject, realHealth);
 
             return true;
         }

@@ -1,6 +1,8 @@
 using UnityEngine;
 
 //animator Bool형 파라미터를 제어하는 클래스
+//animator int형 파라미터를 제어하는 클래스
+//animator float형 파라미터를 제어하는 클래스
 namespace My2D
 {
     public class SetBoolBehaviour : StateMachineBehaviour

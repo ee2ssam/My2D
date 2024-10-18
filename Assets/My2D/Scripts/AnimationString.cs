@@ -15,6 +15,7 @@ namespace My2D
         public static string JumpTrigger = "JumpTrigger";
         public static string AttackTrigger = "AttackTrigger";
         public static string HitTrigger = "HitTrigger";
+        public static string BowTrigger = "BowTrigger";
         public static string YVelocity = "YVelocity";
         public static string CanMove = "CanMove";
         public static string LockVelocity = "LockVelocity";

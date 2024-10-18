@@ -210,6 +210,15 @@ namespace My2D
             }
         }
 
+        public void OnBowAttack(InputAction.CallbackContext context)
+        {
+            //F키 누르는순가 시작하는 순간
+            if (context.started && touchingDirections.IsGround)
+            {
+                animator.SetTrigger(AnimationString.BowTrigger);
+            }
+        }
+
         public void OnHit(float damage, Vector2 knockback)
         {
             rb2D.velocity = new Vector2(knockback.x, rb2D.velocity.y + knockback.y);
