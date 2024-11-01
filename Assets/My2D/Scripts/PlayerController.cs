@@ -10,6 +10,7 @@ namespace My2D
         private Animator animator;
         private TouchingDirections touchingDirections;
         private Damageable damageable;
+        private TrailEffect trailEffect;
 
         //플레이어 이동 속도
         [SerializeField] private float walkSpeed = 4f;
@@ -129,6 +130,7 @@ namespace My2D
             rb2D = this.GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
             touchingDirections = GetComponent<TouchingDirections>();
+            trailEffect = GetComponent<TrailEffect>();  
 
             damageable = GetComponent<Damageable>();
             damageable.hitAction += OnHit;              //UnityAction 델리게이트 함수에 등록
@@ -184,6 +186,12 @@ namespace My2D
             if(context.started)
             {
                 IsRun = true;
+
+                //
+                if (trailEffect != null)
+                {
+                    trailEffect.StartActiveTrail();
+                }
             }
             else if(context.canceled)   //릴리즈 하는 순간
             {
@@ -198,6 +206,12 @@ namespace My2D
             {
                 animator.SetTrigger(AnimationString.JumpTrigger);
                 rb2D.velocity = new Vector2(rb2D.velocity.x, jumpForce);
+
+                //
+                if(trailEffect != null)
+                {
+                    trailEffect.StartActiveTrail();
+                }
             }
         }
 
