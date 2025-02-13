@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 14928a98ac0086a4483452d618f1764c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 297325
+  packageName: 'Block Puzzle: Game Toolkit'
+  packageVersion: 1.06
+  assetPath: Assets/BlockPuzzleGameToolkit/Font/FredokaOne-Regular SDF.asset
+  uploadId: 725012

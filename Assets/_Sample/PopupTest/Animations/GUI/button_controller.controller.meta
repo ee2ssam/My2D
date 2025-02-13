@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: a40c9c2c428a705468855dda352c0a68
+NativeFormatImporter:
+  userData: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 297325
+  packageName: 'Block Puzzle: Game Toolkit'
+  packageVersion: 1.06
+  assetPath: Assets/BlockPuzzleGameToolkit/Animations/GUI/button_controller.controller
+  uploadId: 725012
