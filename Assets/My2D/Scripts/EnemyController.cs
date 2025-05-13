@@ -21,6 +21,7 @@ namespace My2D
         public Animator animator;
         public DetectionZone detectionZone; //플레이어 감지
         private Damageable damageable;
+        public DetectionZone cliffeDetection;
 
         //이동 속도
         [SerializeField] private float walkSpeed = 4f;
@@ -117,6 +118,9 @@ namespace My2D
             damageable = this.GetComponent<Damageable>();
             //델리게이트 함수 등록
             damageable.hitAction += OnHit;
+
+            //cliffeDetection 이벤트 함수 등록
+            cliffeDetection.noColliderRamain += Flip;
         }
 
         private void Update()
