@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Enemy_Hited
+  m_Name: ProjectileEffect
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,9 +21,9 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 4237140444910105288, guid: 5abcd2d4a79189343957876daa267cde, type: 3}
-    - time: 0.3
-      value: {fileID: 4237140444910105288, guid: 5abcd2d4a79189343957876daa267cde, type: 3}
+      value: {fileID: 7568578774837815423, guid: d27e4d126b7ea66439c022c2497684ba, type: 3}
+    - time: 0.2
+      value: {fileID: -3061709081468652209, guid: 7b6d255420bcbe345acebc0a4c68ae57, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,14 +46,14 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 4237140444910105288, guid: 5abcd2d4a79189343957876daa267cde, type: 3}
-    - {fileID: 4237140444910105288, guid: 5abcd2d4a79189343957876daa267cde, type: 3}
+    - {fileID: 7568578774837815423, guid: d27e4d126b7ea66439c022c2497684ba, type: 3}
+    - {fileID: -3061709081468652209, guid: 7b6d255420bcbe345acebc0a4c68ae57, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.4
+    m_StopTime: 0.3
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

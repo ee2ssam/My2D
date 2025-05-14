@@ -29,10 +29,10 @@ namespace My2D
                     ? knockback : new Vector2(-knockback.x, knockback.y);
 
                 bool isHit = damageable.TakeDamage(attackDamage, deliveredKnockback);
-                if(isHit)
+                /*if(isHit)
                 {
                     Debug.Log(collision.name + "hit for " + attackDamage);
-                }
+                }*/
             }
         }
         #endregion

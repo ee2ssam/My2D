@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player_Attack01
+  m_Name: Player_Attack02
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -31,16 +31,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.2
-        value: 1
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 0.4
+        time: 0.3
         value: 1
         inSlope: Infinity
         outSlope: Infinity
@@ -50,6 +41,15 @@ AnimationClip:
         outWeight: 0
       - serializedVersion: 3
         time: 0.5
+        value: 1
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.6
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -61,7 +61,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: PlayerHitBox
+    path: PlayerHitBox02
     classID: 60
     script: {fileID: 0}
     flags: 0
@@ -69,15 +69,17 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: db4d8ccab7b311141a993b1cf0578061, type: 3}
+      value: {fileID: 21300000, guid: 5e7dbcb129955814bbc3bf3d954f86b6, type: 3}
     - time: 0.1
-      value: {fileID: 21300000, guid: bac77685f80cca041a33aa00a07b1b96, type: 3}
+      value: {fileID: 21300000, guid: b4d4ab9f5261ef448bd08c78d63c2cc3, type: 3}
     - time: 0.2
-      value: {fileID: 21300000, guid: d1d1fe7b39bdcbe41a486637c05444d7, type: 3}
-    - time: 0.4
-      value: {fileID: 21300000, guid: de290a03c3ac5604a9fb2f3c54038157, type: 3}
+      value: {fileID: 21300000, guid: 921aacd4ae9752d44be02de326af7432, type: 3}
+    - time: 0.3
+      value: {fileID: 21300000, guid: 0c6a1bb41b6e0a24fb6ff824d3448734, type: 3}
     - time: 0.5
-      value: {fileID: 21300000, guid: dd877c28cd959cd468b43534250fbd37, type: 3}
+      value: {fileID: 21300000, guid: 8176bf53c3a5d64469a4db5b4a88cc43, type: 3}
+    - time: 0.6
+      value: {fileID: 21300000, guid: 139e1671dddd4dc46b3c512d969e10b6, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -91,7 +93,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 3228078271
+      path: 3306853591
       attribute: 3305885265
       script: {fileID: 0}
       typeID: 60
@@ -109,17 +111,18 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: db4d8ccab7b311141a993b1cf0578061, type: 3}
-    - {fileID: 21300000, guid: bac77685f80cca041a33aa00a07b1b96, type: 3}
-    - {fileID: 21300000, guid: d1d1fe7b39bdcbe41a486637c05444d7, type: 3}
-    - {fileID: 21300000, guid: de290a03c3ac5604a9fb2f3c54038157, type: 3}
-    - {fileID: 21300000, guid: dd877c28cd959cd468b43534250fbd37, type: 3}
+    - {fileID: 21300000, guid: 5e7dbcb129955814bbc3bf3d954f86b6, type: 3}
+    - {fileID: 21300000, guid: b4d4ab9f5261ef448bd08c78d63c2cc3, type: 3}
+    - {fileID: 21300000, guid: 921aacd4ae9752d44be02de326af7432, type: 3}
+    - {fileID: 21300000, guid: 0c6a1bb41b6e0a24fb6ff824d3448734, type: 3}
+    - {fileID: 21300000, guid: 8176bf53c3a5d64469a4db5b4a88cc43, type: 3}
+    - {fileID: 21300000, guid: 139e1671dddd4dc46b3c512d969e10b6, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.6
+    m_StopTime: 0.70000005
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -149,16 +152,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.2
-        value: 1
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 0.4
+        time: 0.3
         value: 1
         inSlope: Infinity
         outSlope: Infinity
@@ -168,6 +162,15 @@ AnimationClip:
         outWeight: 0
       - serializedVersion: 3
         time: 0.5
+        value: 1
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 103
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.6
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -179,7 +182,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: PlayerHitBox
+    path: PlayerHitBox02
     classID: 60
     script: {fileID: 0}
     flags: 0
