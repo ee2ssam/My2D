@@ -13,6 +13,8 @@ namespace MyBird
 
         private bool isGameOver = false;
 
+        public bool IsGameOver => isGameOver;
+
         private void Awake()
         {
             if (Instance != null && Instance != this)

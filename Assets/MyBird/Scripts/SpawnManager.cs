@@ -17,6 +17,7 @@ namespace MyBird
 
         [Header("Parenting")]
         [SerializeField] private Transform spawnParent;
+        [SerializeField] private Player player;
 
         private bool spawning = false;
 
@@ -48,6 +49,13 @@ namespace MyBird
         {
             while (spawning)
             {
+                // 플레이어가 Playing 상태일 때만 스폰
+                if (player == null || !player.IsPlaying)
+                {
+                    yield return null;
+                    continue;
+                }
+
                 float wait = Random.Range(minInterval, maxInterval);
                 yield return new WaitForSeconds(wait);
 

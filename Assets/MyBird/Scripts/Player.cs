@@ -26,6 +26,12 @@ namespace MyBird
         private PlayerState state = PlayerState.Idle;
         private bool canMoveForward = true;
 
+        public bool IsPlaying => state == PlayerState.Playing;
+
+        //UI
+        public GameObject readyUI;
+        public GameObject gameOverUI;
+
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
@@ -37,16 +43,8 @@ namespace MyBird
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
-            {
-                // 첫 입력이면 대기 상태에서 플레이 상태로 전환
-                if (state == PlayerState.Idle)
-                {
-                    state = PlayerState.Playing;
-                }
-
-                Jump();
-            }
+            //인풋 처리
+            InputBird();
 
             // 플레이 중일 때만 오른쪽으로 이동
             if (state == PlayerState.Playing)
@@ -74,8 +72,49 @@ namespace MyBird
             }
         }
 
+        private void InputBird()
+        {
+            bool keyJump = false;
+
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+            {
+                keyJump = true;
+            }
+#else
+            //터치 처리
+            if(Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+                if(touch.phase == TouchPhase.Began)
+                {
+                    keyJump = true;
+                }
+            }
+#endif      
+
+            if (keyJump)
+            {
+                // 첫 입력이면 대기 상태에서 플레이 상태로 전환
+                if (state == PlayerState.Idle)
+                {
+                    readyUI.SetActive(false);
+                    state = PlayerState.Playing;
+                }
+
+                Jump();
+            }
+            
+        }
+
         private void Jump()
         {
+            //이동 불가 상태면 점프 안함
+            if (!canMoveForward)
+            {
+                return;
+            }
+
             if (rb == null) return;
 
             // 수직 속도를 직접 설정해서 즉시 점프하도록 한다
@@ -112,7 +151,7 @@ namespace MyBird
             if (other.CompareTag("Point"))
             {
                 GameManager.Instance?.AddScore(1);
-                Destroy(other.gameObject);
+                Destroy(other.gameObject, 2);
             }
         }
 
@@ -122,6 +161,7 @@ namespace MyBird
 
             if (collision.collider != null && collision.collider.CompareTag("Pipe"))
             {
+                gameOverUI.SetActive(true);
                 GameManager.Instance?.GameOver();
             }
         }

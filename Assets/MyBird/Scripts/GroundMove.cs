@@ -9,6 +9,12 @@ namespace MyBird
         
         private void Update()
         {
+            // 게임 오버 상태 이면 이동하지 않음
+            if (GameManager.Instance != null && GameManager.Instance.IsGameOver)
+            {
+                return;
+            }
+
             // 왼쪽으로 지속 이동 (Translate)
             transform.Translate(Vector3.left * moveSpeed * Time.deltaTime, Space.World);
 
