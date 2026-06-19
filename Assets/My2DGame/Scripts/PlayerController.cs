@@ -8,34 +8,177 @@ namespace My2DGame
     /// </summary>
     public class PlayerController : MonoBehaviour
     {
-        [Header("Movement")]
-        [SerializeField] private float moveSpeed = 5f;
+        #region Variables
+        //참조
+        private Rigidbody2D rb2D;
+        private Animator animator;
 
-        private Rigidbody2D rb;
+        [Header("Movement")]        
+        [SerializeField] private float walkSpeed = 4;
+        [SerializeField] private float runSpeed = 8;
+        private float moveSpeed;
+
         private Vector2 moveInput = Vector2.zero;
 
-        private void Awake()
+        //걷기 체크
+        private bool isMove = false;
+        //뛰기 체크
+        private bool isRun = false;
+
+        //반전
+        private bool isFacingRight = true;
+
+        //점프 - y축의 속도를 jumpForce 값으로 설정
+        [SerializeField] private float jumpForce = 10f;
+        #endregion
+
+        #region Property
+        public bool IsMove
         {
-            rb = GetComponent<Rigidbody2D>();
-            if (rb == null)
+            get
             {
-                Debug.LogError("PlayerController requires a Rigidbody2D component.");
+                return isMove; 
+            }
+            private set
+            {
+                isMove = value;
+                animator.SetBool(AnimationString.isMove, value);
             }
         }
 
+        public bool IsRun
+        {
+            get
+            {
+                return isRun;
+            }
+            private set
+            {
+                isRun = value;
+                animator.SetBool(AnimationString.isRun, value);
+            }
+        }
+
+        public bool IsFacingRight
+        {
+            get
+            {
+                return isFacingRight;
+            }
+            private set
+            {
+                //반전 체크
+                if(isFacingRight != value)
+                {
+                    transform.localScale *= new Vector2(-1, 1);
+                }
+                isFacingRight = value;
+            }
+        }
+        #endregion
+
+        #region Unity Event Method
+        private void Awake()
+        {
+            //참조 - 인스턴스 가져오기
+            rb2D = GetComponent<Rigidbody2D>();
+            if (rb2D == null)
+            {
+                Debug.LogError("PlayerController requires a Rigidbody2D component.");
+            }
+            
+            animator = this.GetComponent<Animator>();
+        }
+
+        private void Start()
+        {
+            //초기화
+        }
+
+        private void FixedUpdate()
+        {
+            if (rb2D == null) return;
+
+            //이동속도 얻어오기
+            moveSpeed = GetCurrentMoveSpeed();
+
+            // Rigidbody2D.velocity를 직접 설정하여 좌우 이동을 수행
+            rb2D.linearVelocity = new Vector2(moveInput.x * moveSpeed, rb2D.linearVelocity.y);
+
+            //애니메이션 셋팅
+            animator.SetFloat(AnimationString.yVelocity, rb2D.linearVelocity.y);
+        }
+        #endregion
+
+        #region Custom Method
         // New Input System -> Input Action "Move"에서 Invoke Unity Event 로 이 메서드를 연결하세요.
         // signature: Vector2 (x: 좌우 입력, y: 상하 입력) 를 받습니다.
         public void OnMove(InputAction.CallbackContext context)
         {
             moveInput = context.ReadValue<Vector2>();
+
+            //입력값에 따라 애니메이션 파라미터 제어
+            IsMove = (moveInput != Vector2.zero);
+
+            //바라보는 방향 전환
+            SetFacingDirection(moveInput);
         }
 
-        private void FixedUpdate()
+        public void OnSprint(InputAction.CallbackContext context)
         {
-            if (rb == null) return;
-
-            // Rigidbody2D.velocity를 직접 설정하여 좌우 이동을 수행
-            rb.linearVelocity = new Vector2(moveInput.x * moveSpeed, rb.linearVelocity.y);
+            //버튼 클릭 여부
+            if(context.started) //버튼 down 시작
+            {
+                IsRun = true;
+            }
+            else if(context.canceled) //버튼 up 뗄때
+            {
+                IsRun = false;
+            }
         }
+
+        public void OnJump(InputAction.CallbackContext context)
+        {
+            //버튼 클릭 여부
+            if (context.started) //버튼 down 시작
+            {
+                animator.SetTrigger(AnimationString.jumpTrigger);
+                rb2D.linearVelocity = new Vector2(rb2D.linearVelocity.x, jumpForce);
+            }
+        }
+
+        //현재 이동 속도 구하기
+        float GetCurrentMoveSpeed()
+        {
+            //이동하지 않으면
+            if(IsMove == false)
+            {
+                return 0f;
+            }
+
+            //걷기와 뛰기 구분
+            if(IsRun)
+            {
+                return runSpeed;
+            }
+            else
+            {
+                return walkSpeed;
+            }
+        }
+
+        //바라보는 방향 전환
+        void SetFacingDirection(Vector2 moveInput)
+        {
+            if(moveInput.x > 0f && IsFacingRight == false)
+            {
+                IsFacingRight = true;
+            }
+            else if (moveInput.x < 0f && IsFacingRight == true)
+            {
+                IsFacingRight = false;
+            }
+        }
+        #endregion
     }
 }
