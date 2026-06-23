@@ -12,6 +12,8 @@ namespace My2DGame
         //참조
         private Rigidbody2D rb2D;
         private Animator animator;
+        private TouchingDirection touchingDirection;
+        private Damageable damageable;
 
         [Header("Movement")]        
         [SerializeField] private float walkSpeed = 4;
@@ -75,6 +77,24 @@ namespace My2DGame
                 isFacingRight = value;
             }
         }
+
+        //이동 제어 - 애니메이터 파라미터 값 읽어오기
+        public bool CannotMove
+        {
+            get
+            {
+                return animator.GetBool(AnimationString.cannotMove);
+            }
+        }
+
+        //속도 잠김 상태 읽어오기
+        public bool LockVelocity
+        {
+            get
+            {
+                return animator.GetBool(AnimationString.lockVelocity);
+            }
+        }
         #endregion
 
         #region Unity Event Method
@@ -88,6 +108,11 @@ namespace My2DGame
             }
             
             animator = this.GetComponent<Animator>();
+            touchingDirection = this.GetComponent<TouchingDirection>();
+
+            damageable = GetComponent<Damageable>();
+            //이벤트 함수 등록
+            damageable.hitAction += OnHit;
         }
 
         private void Start()
@@ -99,11 +124,15 @@ namespace My2DGame
         {
             if (rb2D == null) return;
 
-            //이동속도 얻어오기
-            moveSpeed = GetCurrentMoveSpeed();
+            //넉백효과가 없을때 이동 처리
+            if(LockVelocity == false)
+            {
+                //이동속도 얻어오기
+                moveSpeed = GetCurrentMoveSpeed();
 
-            // Rigidbody2D.velocity를 직접 설정하여 좌우 이동을 수행
-            rb2D.linearVelocity = new Vector2(moveInput.x * moveSpeed, rb2D.linearVelocity.y);
+                // Rigidbody2D.velocity를 직접 설정하여 좌우 이동을 수행
+                rb2D.linearVelocity = new Vector2(moveInput.x * moveSpeed, rb2D.linearVelocity.y);
+            }
 
             //애니메이션 셋팅
             animator.SetFloat(AnimationString.yVelocity, rb2D.linearVelocity.y);
@@ -140,18 +169,29 @@ namespace My2DGame
         public void OnJump(InputAction.CallbackContext context)
         {
             //버튼 클릭 여부
-            if (context.started) //버튼 down 시작
+            if (context.started && touchingDirection.IsGround == true) //스페이스바 버튼 down 시작, 캐릭터가 그라운드에 있으면
             {
                 animator.SetTrigger(AnimationString.jumpTrigger);
                 rb2D.linearVelocity = new Vector2(rb2D.linearVelocity.x, jumpForce);
             }
         }
 
+
+        public void OnAttack(InputAction.CallbackContext context)
+        {
+            //버튼 클릭 여부
+            if (context.started && touchingDirection.IsGround == true) //마우스 왼클릭, 캐릭터가 그라운드에 있으면
+            {
+                animator.SetTrigger(AnimationString.attackTrigger);                
+            }
+        }
+
+
         //현재 이동 속도 구하기
         float GetCurrentMoveSpeed()
         {
-            //이동하지 않으면
-            if(IsMove == false)
+            //이동제어 파라미터값이 true 또는 이동하지 않으면
+            if(CannotMove == true || IsMove == false)
             {
                 return 0f;
             }
@@ -178,6 +218,14 @@ namespace My2DGame
             {
                 IsFacingRight = false;
             }
+        }
+
+        //데미지 이벤트 함수에 등록되는 함수
+        void OnHit(float damage, Vector2 knockback)
+        {
+            Debug.Log($"knockback : {knockback}");
+            //넉백 값 적용
+            rb2D.linearVelocity = new Vector2(knockback.x, rb2D.linearVelocity.y + knockback.y);
         }
         #endregion
     }

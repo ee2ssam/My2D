@@ -9,8 +9,15 @@ namespace My2DGame
         public static string isMove = "IsMove";
         public static string isRun = "IsRun";
         public static string isGrounded = "IsGrounded";
+        public static string isWall = "IsWall";
         public static string jumpTrigger = "JumpTrigger";
+        public static string attackTrigger = "AttackTrigger";
         public static string yVelocity = "YVelocity";
-
+        public static string cannotMove = "CannotMove";
+        public static string hasTarget = "HasTarget";
+        public static string hitTrigger = "HitTrigger";
+        public static string isDeath = "IsDeath";
+        public static string cooldownTime = "CooldownTime";
+        public static string lockVelocity = "LockVelocity";
     }
 }
